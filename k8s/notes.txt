@@ -1,0 +1,28 @@
+Run install.sh on each k82 node
+
+
+
+on master node run the following to initialize the cluster
+
+#Initialize K8s
+sudo hostnamectl set-hostname [master-node-hostname]
+
+sudo kubeadm init | tee kubeadm-output.txt
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+
+
+
+
+
+
+
+
+On worker nodes run 
+sudo hostnamectl set-hostname [worker-node-hostname]
+
+kubeadm join [IP-ADDRESS]:6443 --token [TOKEN] \
+        --discovery-token-ca-cert-hash [CERT-HASH]
